@@ -19,6 +19,10 @@ class CreateQuestionsTable extends Migration
             $table->integer('difficulty')->unsigned();
             $table->string('explanation');
             $table->boolean('is_enabled');
+            $table->string('answer1');
+            $table->string('answer2');
+            $table->string('answer3');
+            $table->string('answer4');
             $table->integer('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();

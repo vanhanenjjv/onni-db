@@ -71,13 +71,8 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('answer1') ? ' has-error' : '' }}">
-                            <label for="answer1">Answer 1</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="answer1" value="{{ $answer1->answer }}">
-                                <span class="input-group-addon">
-                                    <input type="radio" name="correct_answer" value="1" title="Is correct?" {{ ($answer1->is_correct == 1) ? 'checked=checked' : '' }}>
-                                </span>
-                            </div>
+                            <label for="answer1">Answer 1 <small>This must be the correct answer</small></label>
+                            <input type="text" class="form-control" name="answer1" value="{{ $question->answer1 }}">
 
                             @if ($errors->has('answer1'))
                                 <span class="help-block">
@@ -88,12 +83,7 @@
 
                         <div class="form-group">
                             <label for="answer2">Answer 2</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="answer2" value="{{ $answer2->answer }}">
-                                <span class="input-group-addon">
-                                    <input type="radio" name="correct_answer" value="2" title="Is correct?" {{ ($answer2->is_correct == 1) ? 'checked=checked' : '' }}>
-                                </span>
-                            </div>
+                            <input type="text" class="form-control" name="answer2" value="{{ $question->answer2 }}">
 
                             @if ($errors->has('answer2'))
                                 <span class="help-block">
@@ -104,12 +94,8 @@
 
                         <div class="form-group">
                             <label for="answer3">Answer 3</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="answer3" value="{{ $answer3->answer }}">
-                                <span class="input-group-addon">
-                                    <input type="radio" name="correct_answer" value="3" title="Is correct?" {{ ($answer3->is_correct == 1) ? 'checked=checked' : '' }}>
-                                </span>
-                            </div>
+                            <input type="text" class="form-control" name="answer3" value="{{ $question->answer3 }}">
+
                             @if ($errors->has('answer3'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('answer3') }}</strong>
@@ -119,12 +105,8 @@
 
                         <div class="form-group">
                             <label for="answer4">Answer 4</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="answer4" value="{{ $answer4->answer }}">
-                                <span class="input-group-addon">
-                                    <input type="radio" name="correct_answer" value="4" title="Is correct?" {{ ($answer4->is_correct == 1) ? 'checked=checked' : '' }}>
-                                </span>
-                            </div>
+                            <input type="text" class="form-control" name="answer4" value="{{ $question->answer4 }}">
+
                             @if ($errors->has('answer4'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('answer4') }}</strong>

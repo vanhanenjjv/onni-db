@@ -12,16 +12,7 @@ class Question extends Model
      * @var array
      */
     protected $fillable = [
-        'question', 'difficulty', 'explanation', 'is_enabled'
+        'question', 'difficulty', 'explanation', 'is_enabled', 'answer1',
+        'answer2', 'answer3', 'answer4'
     ];
-
-    /**
-     * Define a relationship between Question and Answer.
-     *
-     * @var void
-     */
-    public function answers()
-    {
-        return $this->hasMany('OWS\Answer');
-    }
 }

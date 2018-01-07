@@ -16,9 +16,10 @@ class EndpointOne extends Controller
     public function getQuestionId($difficulty, $category)
     {
         $question = Question::inRandomOrder()
-            //->where('difficulty', '=', $difficulty)
-            //->where('category', '=', $category)
-            ->first();
+            ->where('difficulty', '=', $difficulty)
+            ->where('category_id', '=', $category)
+            ->where('is_enabled', '=', true)
+            ->firstOrFail();
 
         return $question->id;
     }
@@ -40,10 +41,10 @@ class EndpointOne extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getAnswer($answer, $answer_numbers)
+    public function getAnswer($answer, $answer_number)
     {
         $question = Question::find($answer);
-        return $question->answers[$answer_numbers]->answer;
+        return $question->{'answer' . $answer_number};
     }
 
     /**

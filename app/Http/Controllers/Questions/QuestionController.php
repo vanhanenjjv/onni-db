@@ -3,7 +3,6 @@
 namespace OWS\Http\Controllers\Questions;
 
 use OWS\{
-    Answer,
     Category,
     Question
 };
@@ -65,12 +64,10 @@ class QuestionController extends Controller
             'answer1' => 'required|min:1',
             'answer2' => 'required|min:1',
             'answer3' => 'required|min:1',
-            'answer4' => 'required|min:1',
-            'correct_answer' => 'required|min:1'
+            'answer4' => 'required|min:1'
         ]);
 
         $question = $this->store_question($request);
-        $this->store_answers($request, $question);
 
         return redirect()
             ->route('question.all')
@@ -90,15 +87,14 @@ class QuestionController extends Controller
         $question = Question::findOrFail($question);
         $categories = Category::all();
 
-        $answers = $question->answers;
         return view('questions.edit')
             ->with([
                 'question' => $question,
                 'categories' => $categories,
-                'answer1' =>$answers[0],
-                'answer2' =>$answers[1],
-                'answer3' =>$answers[2],
-                'answer4' =>$answers[3],
+                'answer1' => $question->answer1,
+                'answer2' => $question->answer2,
+                'answer3' => $question->answer3,
+                'answer4' => $question->answer4,
             ]);
     }
 
@@ -117,25 +113,11 @@ class QuestionController extends Controller
             'answer2' => 'required|min:1',
             'answer3' => 'required|min:1',
             'answer4' => 'required|min:1',
-            'correct_answer' => 'required|min:1'
         ]);
 
         $question = Question::findOrFail($question);
 
-        // update question
-        $question->question = $request->question;
-        $question->difficulty = $request->difficulty;
-        $question->explanation = $request->explanation;
-        $question->is_enabled = $request->question_enabled == 1;
-        $question->save();
-
-        // answers
-        $question->answers->each(function ($answer, $key) use ($request) {
-            $answer->answer = $request->{'answer' . ($key + 1) };
-            $answer->is_correct = $request->correct_answer == $key + 1;
-            $answer->save();
-        });
-        $answers = $question->answer;
+        $this->update_question($question, $request);
 
         return redirect()
             ->route('question.edit', ['question' => $question->id])
@@ -143,10 +125,10 @@ class QuestionController extends Controller
                 'status' => 200,
                 'message' => 'Question updated',
                 'question' => $question,
-                'answer1' =>$answers[0],
-                'answer2' =>$answers[1],
-                'answer3' =>$answers[2],
-                'answer4' =>$answers[3],
+                'answer1' => $request->answer1,
+                'answer2' => $request->answer2,
+                'answer3' => $request->answer3,
+                'answer4' => $request->answer4,
             ]);
     }
 
@@ -195,36 +177,33 @@ class QuestionController extends Controller
                 'question' => $request->question,
                 'difficulty' => $request->difficulty,
                 'explanation' => $request->explanation,
-                'is_enabled' => $request->question_enabled == 1
+                'is_enabled' => $request->question_enabled == 1,
+                'answer1' => $request->answer1,
+                'answer2' => $request->answer2,
+                'answer3' => $request->answer3,
+                'answer4' => $request->answer4,
             ]));
 
         return $question;
     }
 
     /**
-     * Store new answers.
+     * Update questions.
      *
-     * @return void
+     * @return OWS\Question
      */
-    private function store_answers(Request $request, $question)
+    private function update_question($question, Request $request)
     {
-        $question->answers()->saveMany([
-            new Answer([
-                'answer' => $request->answer1,
-                'is_correct' => $request->correct_answer == 1
-            ]),
-            new Answer([
-                'answer' => $request->answer2,
-                'is_correct' => $request->correct_answer == 2
-            ]),
-            new Answer([
-                'answer' => $request->answer3,
-                'is_correct' => $request->correct_answer == 3
-            ]),
-            new Answer([
-                'answer' => $request->answer4,
-                'is_correct' => $request->correct_answer == 4
-            ]),
-        ]);
+        $question->question = $request->question;
+        $question->difficulty = $request->difficulty;
+        $question->explanation = $request->explanation;
+        $question->is_enabled = $request->question_enabled == 1;
+        $question->answer1 = $request->answer1;
+        $question->answer2 = $request->answer2;
+        $question->answer3 = $request->answer3;
+        $question->answer4 = $request->answer4;
+        $question->save();
+
+        return $question;
     }
 }

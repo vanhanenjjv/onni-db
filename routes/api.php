@@ -3,29 +3,38 @@
 use Illuminate\Http\Request;
 
 /*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
-/*** API endpoint for games ***/
-/*
-
-/api/v1/question/{difficulty}/{category}
+/api/v1/questionId/{difficulty}/{category}
     {difficulty} - Can be 1 - 3
-    {category} -
+    {category} - Id of the category from which questions will be drawn
 
 Returns ID of the question that matches the category and difficulty
 
+--
+
+/api/v1/question/{question}
+    {question} - Id of the question
+
+Returns the text form of question.
+
+--
+
 /api/v1/answer/{question}/{number}
-    {question} - ID for question
-    {number} - Answer order number. Can be 0 - 3.
-Returns {number} anwer for the question.
+    {question} - Id of the question
+    {number} - Which answer, can be 1 - 4.
+
+Returns the Nth answer for a question.
+
+--
+
+/api/v1/explanation/{question}
+    {question} - Id of the question
+
+Returns the answer explanation.
+
+--
+
+Psst. I didn't design the logic. Don't blame me.
 
 */
 
