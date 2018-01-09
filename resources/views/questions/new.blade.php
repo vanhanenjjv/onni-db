@@ -40,7 +40,7 @@
                             <div class="form-group{{ $errors->has('question_enabled') ? ' has-error' : '' }}">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="question_enabled" value="1">
+                                        <input type="checkbox" name="question_enabled" value="1" checked="true">
                                         Is the question enabled?
                                     </label>
                                 </div>
