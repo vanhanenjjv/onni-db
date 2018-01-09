@@ -106,6 +106,7 @@ class QuestionController extends Controller
     public function update($question, Request $request)
     {
         $this->validate($request, [
+            'category' => 'required|min:1',
             'question' => 'required|min:1',
             'difficulty' => 'required|between:1,3',
             'explanation' => 'required|min:1',
@@ -194,6 +195,7 @@ class QuestionController extends Controller
      */
     private function update_question($question, Request $request)
     {
+        $question->category_id = $request->category;
         $question->question = $request->question;
         $question->difficulty = $request->difficulty;
         $question->explanation = $request->explanation;
