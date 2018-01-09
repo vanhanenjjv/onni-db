@@ -8,9 +8,6 @@
                 <div class="panel-heading">Edit question</div>
 
                 <div class="panel-body">
-                    @if ($errors)
-                        {{ dump($errors) }}
-                    @endif
                     <form method="post" action="{{ route('question.edit', ['question' => $question->id]) }}" autocomplete="off">
                         {{ csrf_field() }}
 

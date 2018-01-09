@@ -8,9 +8,6 @@
                 <div class="panel-heading">Edit category</div>
 
                 <div class="panel-body">
-                    @if ($errors)
-                        {{ dump($errors) }}
-                    @endif
                     <form method="post" action="{{ route('category.edit', ['category' => $category->id]) }}" autocomplete="off">
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
