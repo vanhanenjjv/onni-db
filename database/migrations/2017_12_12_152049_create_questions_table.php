@@ -23,7 +23,7 @@ class CreateQuestionsTable extends Migration
             $table->string('answer2');
             $table->string('answer3');
             $table->string('answer4');
-            $table->integer('category_id');
+            $table->unsignedInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
