@@ -4,9 +4,10 @@ namespace OWS\Http\Controllers\Settings;
 
 use Auth;
 use Illuminate\Http\Request;
+use OWS\Rules\CurrentPassword;
 use OWS\Http\Controllers\Controller;
 
-class SettingsController extends Controller
+class PasswordController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -19,7 +20,7 @@ class SettingsController extends Controller
     }
 
     /**
-     * Show the application settings.
+     * Show password change form.
      *
      * @return \Illuminate\Http\Response
      */
@@ -27,7 +28,7 @@ class SettingsController extends Controller
     {
         $user = Auth::user();
 
-        return view('settings.profile')->with(['user' => $user]);
+        return view('settings.password')->with(['user' => $user]);
     }
 
     /**
@@ -38,19 +39,17 @@ class SettingsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'  => 'required|min:1',
-            'email' => 'required|email',
+            'current_password'          => ['required', 'string', new CurrentPassword()],
+            'new_password'              => 'required|string|min:8|different:current_password',
+            'new_password_confirmation' => 'required|string|same:new_password',
         ]);
 
-        Auth::user()->update(
-            [
-                'name'              => $request->name,
-                'email'             => $request->email,
-            ]
-        );
+        auth()->user()->update([
+            'password' => bcrypt($request->new_password),
+        ]);
 
         return redirect()
-            ->route('settings.profile')
+            ->route('settings.password')
             ->with([
                 'flash_status'  => 'success',
                 'flash_message' => 'Settings saved.',

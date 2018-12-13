@@ -41,5 +41,8 @@ Route::get('/category/delete/{question}', 'Categories\CategoryController@delete'
 Route::post('/category/delete/{question}', 'Categories\CategoryController@destroy');
 
 /* Settings */
-Route::get('/settings', 'Settings\SettingsController@index')->name('settings');
+Route::get('/settings', 'Settings\SettingsController@index')->name('settings.profile');
 Route::post('/settings', 'Settings\SettingsController@store');
+
+Route::get('/settings/password', 'Settings\PasswordController@index')->name('settings.password');
+Route::post('/settings/password', 'Settings\PasswordController@store');

@@ -71,7 +71,7 @@
                         @if (Auth::check())
                             <li {{ active(['question*']) }}><a href="{{ route('question.all') }}">Questions</a></li>
                             <li {{ active(['category*']) }}><a href="{{ route('category.all') }}">Categories</a></li>
-                            <li {{ active(['settings*']) }}><a href="{{ route('settings') }}">Settings</a></li>
+                            <li {{ active(['settings*']) }}><a href="{{ route('settings.profile') }}">Settings</a></li>
                         @endif
                     </ul>
 
@@ -88,7 +88,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ route('settings') }}">Settings</a></li>
+                                    <li><a href="{{ route('settings.profile') }}">Settings</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

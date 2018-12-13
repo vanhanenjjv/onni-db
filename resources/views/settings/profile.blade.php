@@ -8,7 +8,7 @@
                 <div class="panel-heading">Settings</div>
 
                 <div class="panel-body">
-                    <form method="post" action="{{ route('settings') }}">
+                    <form method="post" action="{{ route('settings.profile') }}">
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="control-label">Name</label>
@@ -38,6 +38,7 @@
 
             </div>
         </div>
+        @include('partials.settings-menu')
     </div>
 </div>
 @endsection
