@@ -51,7 +51,5 @@ class CreateAdmin extends Command
         $user->email = $email;
         $user->password = Hash::make($password);
         $user->save();
-
-        $this->comment($email.$password);
     }
 }
