@@ -25,24 +25,30 @@ Route::post('/edit/{question}', 'Questions\QuestionController@update');
 Route::get('/delete/{question}', 'Questions\QuestionController@delete')->name('question.delete');
 Route::post('/delete/{question}', 'Questions\QuestionController@destroy');
 
-/* List categories */
-Route::get('/category/all', 'Categories\CategoryController@index')->name('category.all');
+Route::prefix('category')->group(function () {
+    /* List categories */
+    Route::get('all', 'Categories\CategoryController@index')->name('category.all');
 
 // New category
-Route::get('/category/new', 'Categories\CategoryController@new')->name('category.new');
-Route::post('/category/new', 'Categories\CategoryController@store');
+    Route::get('new', 'Categories\CategoryController@new')->name('category.new');
+    Route::post('new', 'Categories\CategoryController@store');
 
 // Edit category
-Route::get('/category/edit/{question}', 'Categories\CategoryController@edit')->name('category.edit');
-Route::post('/category/edit/{question}', 'Categories\CategoryController@update');
+    Route::get('edit/{question}', 'Categories\CategoryController@edit')->name('category.edit');
+    Route::post('edit/{question}', 'Categories\CategoryController@update');
 
 // Delete category
-Route::get('/category/delete/{question}', 'Categories\CategoryController@delete')->name('category.delete');
-Route::post('/category/delete/{question}', 'Categories\CategoryController@destroy');
+    Route::get('delete/{question}', 'Categories\CategoryController@delete')->name('category.delete');
+    Route::post('delete/{question}', 'Categories\CategoryController@destroy');
+});
 
 /* Settings */
-Route::get('/settings', 'Settings\SettingsController@index')->name('settings.profile');
-Route::post('/settings', 'Settings\SettingsController@store');
+Route::prefix('settings')->group(function () {
+    Route::get('/', 'Settings\SettingsController@index')->name('settings.profile');
+    Route::post('/', 'Settings\SettingsController@store');
 
-Route::get('/settings/password', 'Settings\PasswordController@index')->name('settings.password');
-Route::post('/settings/password', 'Settings\PasswordController@store');
+    Route::get('password', 'Settings\PasswordController@index')->name('settings.password');
+    Route::post('password', 'Settings\PasswordController@store');
+});
+
+

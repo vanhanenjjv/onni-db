@@ -38,7 +38,9 @@ Psst. I didn't design the logic. Don't blame me.
 
 */
 
-Route::get('/v1/questionId/{difficulty}/{category}', 'Endpoints\EndpointOne@getQuestionId')->name('api.v1.getQuestionId');
-Route::get('/v1/question/{question}', 'Endpoints\EndpointOne@getQuestion')->name('api.v1.getQuestion');
-Route::get('/v1/answer/{question}/{number}', 'Endpoints\EndpointOne@getAnswer')->name('api.v1.getAnswer');
-Route::get('/v1/explanation/{question}', 'Endpoints\EndpointOne@getExplanation')->name('api.v1.getExplanation');
+Route::prefix('v1')->group(function () {
+    Route::get('questionId/{difficulty}/{category}', 'Endpoints\EndpointOne@getQuestionId')->name('api.v1.getQuestionId');
+    Route::get('question/{question}', 'Endpoints\EndpointOne@getQuestion')->name('api.v1.getQuestion');
+    Route::get('answer/{question}/{number}', 'Endpoints\EndpointOne@getAnswer')->name('api.v1.getAnswer');
+    Route::get('explanation/{question}', 'Endpoints\EndpointOne@getExplanation')->name('api.v1.getExplanation');
+});
