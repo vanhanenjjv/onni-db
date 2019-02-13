@@ -46,5 +46,5 @@ Route::prefix('v1')->group(function () {
 });
 
 Route::prefix('v2')->group(function () {
-    Route::get('question/{category}/{difficulty}', 'Endpoints\EndpointTwo@getQuestion')->name('api.v2.getQuestion');
+    Route::get('question', 'Endpoints\EndpointTwo@getQuestion')->name('api.v2.getQuestion');
 });

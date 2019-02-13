@@ -11,12 +11,20 @@ use OWS\{
 
 class EndpointTwo extends Controller
 {
-    public function getQuestion($category, $difficulty) {
-        $question = Question::inRandomOrder()
-            ->where('difficulty', '=', $difficulty)
+    public function getQuestion(Request $request) {
+        $category = $request->query('category');
+
+        $query = Question::query()
+            ->inRandomOrder()
             ->where('category_id', '=', $category)
-            ->where('is_enabled', '=', true)
-            ->firstOrFail();
+            ->where('is_enabled', '=', true);
+
+
+        $query->when(request('difficulty', false), function ($q, $difficulty) {
+            return $q->where('difficulty', '=', $difficulty);
+        });
+
+        $question = $query->firstOrFail();
 
         $answers = [
             [
